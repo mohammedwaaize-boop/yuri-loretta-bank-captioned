@@ -1,4 +1,4 @@
-name: Publish clean film with corrected clerk
+name: Publish continuous walking escort correction
 on:
   push:
     paths:
@@ -11,23 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Download and verify no-captions MP4
+      - name: Download and verify complete clean MP4
         run: |
-          curl --fail --location --retry 3 --output YURI_Loretta_No_Captions_LipSync_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/53af5620-d47a-4f68-a0a7-3e099dee92d9.mp4'
-          echo '7d0001258f235c6cbaeedb7a3af49b574f1e3ca77a6847c4e1b1f871a7ec2b61  YURI_Loretta_No_Captions_LipSync_480p.mp4' | sha256sum --check
+          curl --fail --location --retry 3 --output YURI_Loretta_Walk_And_Sit_No_Captions_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/5200aa10-462d-4917-80cc-667f55178740.mp4'
+          echo '92c70034804d96578d277967fa4bf87c297451fce0c1e5340b723a317b43b088  YURI_Loretta_Walk_And_Sit_No_Captions_480p.mp4' | sha256sum --check
       - name: Publish direct MP4
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           cat > release-notes.md <<'NOTES'
-          All dialogue captions removed by rendering clean source clips. The walking cutaway around0:31-0:36 is replaced with Megan visibly speaking her own lines. Her mouth timing is aligned to the original dialogue audio. Preserves the approved younger Loretta, seated continuity and product end-card artwork.
+          Restores the actual walking escort. Megan speaks while walking beside Loretta from the counter through the office doorway; the guard follows. Loretta visibly lowers into the visitor chair and then replies seated. The later manager request and visible manager entrance remain in sequence.
 
-          Duration: 4:08. Native resolution: 480 x 854, 24 fps.
-          File size: 57567442 bytes.
-          One complete MP4 without dialogue captions. No extraction required.
+          The new transition uses synchronized speech guided by the original dialogue reference. Exact dialogue text verified. Other approved scenes and the product end card are retained. No dialogue captions.
 
-          SHA-256: 7d0001258f235c6cbaeedb7a3af49b574f1e3ca77a6847c4e1b1f871a7ec2b61
+          Duration: 4:09. Native resolution: 480 x 854, 24 fps.
+          File size: 59078592 bytes.
+          One complete MP4. No extraction required.
+
+          SHA-256: 92c70034804d96578d277967fa4bf87c297451fce0c1e5340b723a317b43b088
           NOTES
-          gh release create v6.0 YURI_Loretta_No_Captions_LipSync_480p.mp4 --title 'YURI Loretta — No captions, corrected clerk' --notes-file release-notes.md
-          gh release view v6.0 --json url,assets
+          gh release create v7.0 YURI_Loretta_Walk_And_Sit_No_Captions_480p.mp4 --title 'YURI Loretta — Continuous walk and sit, no captions' --notes-file release-notes.md
+          gh release view v7.0 --json url,assets
