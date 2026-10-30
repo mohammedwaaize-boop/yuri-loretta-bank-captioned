@@ -1,4 +1,4 @@
-name: Publish direct MP4 download
+name: Publish rebuilt captioned video
 on:
   push:
     paths:
@@ -11,14 +11,37 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Download and verify original captioned MP4
+      - name: Download and verify final captioned MP4
         run: |
-          curl --fail --location --retry 3 --output YURI_Loretta_Full_Quality_Captioned.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/e6d54082-d9e5-4a26-9abd-6e44819910cb.mp4'
-          echo 'a4e327701203d07dbbffca1959d3bd82f4893989792cb9bc8e42576b6bbf658e  YURI_Loretta_Full_Quality_Captioned.mp4' | sha256sum --check
-      - name: Publish single original MP4
+          curl --fail --location --retry 3 --output YURI_Loretta_Rebuilt_Captioned_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/88500a50-f97f-4068-8320-55354af10924.mp4'
+          echo '6cbb6027c8af2f29a5dfce7af725a482b07a62e3c55ec4be658fb841cdd5d130  YURI_Loretta_Rebuilt_Captioned_480p.mp4' | sha256sum --check
+      - name: Publish the full captioned film
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          gh release upload v1.0 YURI_Loretta_Full_Quality_Captioned.mp4
-          gh release view v1.0 --json url,assets
+          VIDEO='YURI_Loretta_Rebuilt_Captioned_480p.mp4'
+          if [ "$(stat -c %s "$VIDEO")" -gt 100000000 ]; then
+            7z a -t7z -mx=0 -v95000000b YURI_Loretta_Rebuilt_Captioned_480p.7z "$VIDEO"
+            7z t YURI_Loretta_Rebuilt_Captioned_480p.7z.001
+            7z x YURI_Loretta_Rebuilt_Captioned_480p.7z.001 -overify
+            cmp "$VIDEO" "verify/$VIDEO"
+            assets=(YURI_Loretta_Rebuilt_Captioned_480p.7z.*)
+          else
+            assets=("$VIDEO")
+          fi
+          cat > release-notes.md <<'NOTES'
+          Rebuilt YURI Loretta bank drama with burned-in English captions.
+
+          Revised ID and phone action order, clearer face framing, matched scene transitions, and shorter silent gaps.
+
+          Duration: 4:42. Native resolution: 480 × 854, 24 fps. File size: 80,704,799 bytes.
+
+          The MP4 is one complete captioned video. No extraction is needed for the MP4. If numbered .7z volumes are present, download all volumes into one folder and extract .001 to obtain the single MP4.
+
+          SHA-256: 6cbb6027c8af2f29a5dfce7af725a482b07a62e3c55ec4be658fb841cdd5d130
+
+          No clean version, separate subtitles, or individual video clips are included. GitHub's automatic Source code archives are not the video.
+          NOTES
+          gh release create v2.0 "${assets[@]}" --title "YURI Loretta — Rebuilt captioned film" --notes-file release-notes.md
+          gh release view v2.0 --json url,assets
