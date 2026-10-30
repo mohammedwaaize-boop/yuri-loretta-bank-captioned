@@ -1,4 +1,4 @@
-name: Publish seated continuity correction
+name: Publish clean film with corrected clerk
 on:
   push:
     paths:
@@ -11,23 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Download and verify complete captioned film
+      - name: Download and verify no-captions MP4
         run: |
-          curl --fail --location --retry 3 --output YURI_Loretta_Seated_Continuity_Captioned_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/7d7f5dc3-e463-468c-a114-1c996966fe9f.mp4'
-          echo '98434001046f3710da1f9003f6deea697599455c7860859a220f35eee7227081  YURI_Loretta_Seated_Continuity_Captioned_480p.mp4' | sha256sum --check
+          curl --fail --location --retry 3 --output YURI_Loretta_No_Captions_LipSync_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/53af5620-d47a-4f68-a0a7-3e099dee92d9.mp4'
+          echo '7d0001258f235c6cbaeedb7a3af49b574f1e3ca77a6847c4e1b1f871a7ec2b61  YURI_Loretta_No_Captions_LipSync_480p.mp4' | sha256sum --check
       - name: Publish direct MP4
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           cat > release-notes.md <<'NOTES'
-          Loretta remains seated at the same desk throughout the collagen explanation. The short Six weeks answer also stays seated with its original timing. The opening is reframed using the original lip-synced performance. Other approved scenes, dialogue and captions are preserved.
+          All dialogue captions removed by rendering clean source clips. The walking cutaway around0:31-0:36 is replaced with Megan visibly speaking her own lines. Her mouth timing is aligned to the original dialogue audio. Preserves the approved younger Loretta, seated continuity and product end-card artwork.
 
           Duration: 4:08. Native resolution: 480 x 854, 24 fps.
-          File size: 58392623 bytes.
-          One complete captioned MP4. No extraction required.
+          File size: 57567442 bytes.
+          One complete MP4 without dialogue captions. No extraction required.
 
-          SHA-256: 98434001046f3710da1f9003f6deea697599455c7860859a220f35eee7227081
+          SHA-256: 7d0001258f235c6cbaeedb7a3af49b574f1e3ca77a6847c4e1b1f871a7ec2b61
           NOTES
-          gh release create v5.0 YURI_Loretta_Seated_Continuity_Captioned_480p.mp4 --title 'YURI Loretta — Seated continuity correction' --notes-file release-notes.md
-          gh release view v5.0 --json url,assets
+          gh release create v6.0 YURI_Loretta_No_Captions_LipSync_480p.mp4 --title 'YURI Loretta — No captions, corrected clerk' --notes-file release-notes.md
+          gh release view v6.0 --json url,assets
