@@ -1,4 +1,4 @@
-name: Publish captioned video
+name: Publish direct MP4 download
 on:
   push:
     paths:
@@ -11,31 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Download and verify captioned MP4
+      - name: Download and verify original captioned MP4
         run: |
           curl --fail --location --retry 3 --output YURI_Loretta_Full_Quality_Captioned.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/e6d54082-d9e5-4a26-9abd-6e44819910cb.mp4'
           echo 'a4e327701203d07dbbffca1959d3bd82f4893989792cb9bc8e42576b6bbf658e  YURI_Loretta_Full_Quality_Captioned.mp4' | sha256sum --check
-      - name: Package one MP4 into numbered volumes
-        run: |
-          7z a -t7z -mx=0 -v95000000b YURI_Loretta_Captioned.7z YURI_Loretta_Full_Quality_Captioned.mp4
-          7z t YURI_Loretta_Captioned.7z.001
-          7z x YURI_Loretta_Captioned.7z.001 -overify
-          cmp YURI_Loretta_Full_Quality_Captioned.mp4 verify/YURI_Loretta_Full_Quality_Captioned.mp4
-      - name: Publish download assets
+      - name: Publish single original MP4
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          cat > release-notes.md <<'NOTES'
-          Full-length captioned YURI Loretta bank film.
-
-          Download both .001 and .002 files into the same folder. Open YURI_Loretta_Captioned.7z.001 with 7-Zip or WinRAR and extract. It produces one complete captioned MP4.
-
-          Duration: 5:39. Native source resolution: 480 × 854, portrait, 24 fps. MP4 size: 107,476,265 bytes. Captions are burned in; no separate subtitle file or clean version.
-
-          SHA-256 of extracted MP4: a4e327701203d07dbbffca1959d3bd82f4893989792cb9bc8e42576b6bbf658e.
-
-          The archive contains one MP4, not separate video clips. GitHub's automatically generated Source code archives are not the video.
-          NOTES
-          gh release create v1.0 YURI_Loretta_Captioned.7z.001 YURI_Loretta_Captioned.7z.002 --title 'YURI Loretta — Full captioned film' --notes-file release-notes.md
+          gh release upload v1.0 YURI_Loretta_Full_Quality_Captioned.mp4
           gh release view v1.0 --json url,assets
