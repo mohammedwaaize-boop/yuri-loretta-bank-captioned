@@ -1,4 +1,4 @@
-name: Publish younger Loretta film
+name: Publish seated continuity correction
 on:
   push:
     paths:
@@ -11,23 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Download and verify captioned film
+      - name: Download and verify complete captioned film
         run: |
-          curl --fail --location --retry 3 --output YURI_Loretta_Young_Glow_Captioned_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/6204b84b-0866-404e-9c7f-3b1f6c3041e0.mp4'
-          echo '55c307651130192b031ef616cb74a3d466083e05320ae4f878ec4d83614ca483  YURI_Loretta_Young_Glow_Captioned_480p.mp4' | sha256sum --check
+          curl --fail --location --retry 3 --output YURI_Loretta_Seated_Continuity_Captioned_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/7d7f5dc3-e463-468c-a114-1c996966fe9f.mp4'
+          echo '98434001046f3710da1f9003f6deea697599455c7860859a220f35eee7227081  YURI_Loretta_Seated_Continuity_Captioned_480p.mp4' | sha256sum --check
       - name: Publish direct MP4
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           cat > release-notes.md <<'NOTES'
-          Complete bank drama with younger Loretta and smoother skin. Preserves the approved frontal speaker close-ups, reverse angles, original dialogue and captions.
+          Loretta remains seated at the same desk throughout the collagen explanation. The short Six weeks answer also stays seated with its original timing. The opening is reframed using the original lip-synced performance. Other approved scenes, dialogue and captions are preserved.
 
-          Duration: 4:08. Original resolution: 480 x 854, 24 fps.
-          File size: 59092327 bytes.
-          One complete MP4. Download directly; no extraction required.
+          Duration: 4:08. Native resolution: 480 x 854, 24 fps.
+          File size: 58392623 bytes.
+          One complete captioned MP4. No extraction required.
 
-          SHA-256: 55c307651130192b031ef616cb74a3d466083e05320ae4f878ec4d83614ca483
+          SHA-256: 98434001046f3710da1f9003f6deea697599455c7860859a220f35eee7227081
           NOTES
-          gh release create v4.0 YURI_Loretta_Young_Glow_Captioned_480p.mp4 --title 'YURI Loretta — Younger look' --notes-file release-notes.md
-          gh release view v4.0 --json url,assets
+          gh release create v5.0 YURI_Loretta_Seated_Continuity_Captioned_480p.mp4 --title 'YURI Loretta — Seated continuity correction' --notes-file release-notes.md
+          gh release view v5.0 --json url,assets
