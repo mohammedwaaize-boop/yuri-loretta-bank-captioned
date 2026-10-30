@@ -1,4 +1,4 @@
-name: Publish rebuilt captioned video
+name: Publish frontal conversation film
 on:
   push:
     paths:
@@ -11,37 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Download and verify final captioned MP4
+      - name: Download and verify captioned film
         run: |
-          curl --fail --location --retry 3 --output YURI_Loretta_Rebuilt_Captioned_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/88500a50-f97f-4068-8320-55354af10924.mp4'
-          echo '6cbb6027c8af2f29a5dfce7af725a482b07a62e3c55ec4be658fb841cdd5d130  YURI_Loretta_Rebuilt_Captioned_480p.mp4' | sha256sum --check
-      - name: Publish the full captioned film
+          curl --fail --location --retry 3 --output YURI_Loretta_Frontal_Captioned_480p.mp4 'https://d2ol7oe51mr4n9.cloudfront.net/user_3928zmivRRlEagnO67dqCCUMSDW/6ff7e85b-108e-4e6b-bc95-3c2dce5751d7.mp4'
+          echo 'bb968ca0141a2e46a15d98b95f6328b9601ebd1e36f2a19f8a913e7954956ea0  YURI_Loretta_Frontal_Captioned_480p.mp4' | sha256sum --check
+      - name: Publish direct MP4
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          VIDEO='YURI_Loretta_Rebuilt_Captioned_480p.mp4'
-          if [ "$(stat -c %s "$VIDEO")" -gt 100000000 ]; then
-            7z a -t7z -mx=0 -v95000000b YURI_Loretta_Rebuilt_Captioned_480p.7z "$VIDEO"
-            7z t YURI_Loretta_Rebuilt_Captioned_480p.7z.001
-            7z x YURI_Loretta_Rebuilt_Captioned_480p.7z.001 -overify
-            cmp "$VIDEO" "verify/$VIDEO"
-            assets=(YURI_Loretta_Rebuilt_Captioned_480p.7z.*)
-          else
-            assets=("$VIDEO")
-          fi
           cat > release-notes.md <<'NOTES'
-          Rebuilt YURI Loretta bank drama with burned-in English captions.
+          Complete regenerated bank drama with frontal speaker close-ups, reverse angles, matching conversation eyelines, and burned-in captions.
 
-          Revised ID and phone action order, clearer face framing, matched scene transitions, and shorter silent gaps.
+          Duration: 4:08. Original resolution: 480 × 854, 24 fps.
+          File size: 56076887 bytes.
+          One complete MP4. Download directly; no extraction required.
 
-          Duration: 4:42. Native resolution: 480 × 854, 24 fps. File size: 80,704,799 bytes.
-
-          The MP4 is one complete captioned video. No extraction is needed for the MP4. If numbered .7z volumes are present, download all volumes into one folder and extract .001 to obtain the single MP4.
-
-          SHA-256: 6cbb6027c8af2f29a5dfce7af725a482b07a62e3c55ec4be658fb841cdd5d130
-
-          No clean version, separate subtitles, or individual video clips are included. GitHub's automatic Source code archives are not the video.
+          SHA-256: bb968ca0141a2e46a15d98b95f6328b9601ebd1e36f2a19f8a913e7954956ea0
           NOTES
-          gh release create v2.0 "${assets[@]}" --title "YURI Loretta — Rebuilt captioned film" --notes-file release-notes.md
-          gh release view v2.0 --json url,assets
+          gh release create v3.0 YURI_Loretta_Frontal_Captioned_480p.mp4 --title 'YURI Loretta — Frontal conversation remake' --notes-file release-notes.md
+          gh release view v3.0 --json url,assets
