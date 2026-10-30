@@ -1,19 +1,18 @@
-# YURI Loretta — No captions, corrected clerk
+# YURI Loretta — Continuous walk and sit, no captions
 
-[Download the complete MP4 without dialogue captions](https://github.com/mohammedwaaize-boop/yuri-loretta-bank-captioned/releases/download/v6.0/YURI_Loretta_No_Captions_LipSync_480p.mp4)
+[Download the complete MP4](https://github.com/mohammedwaaize-boop/yuri-loretta-bank-captioned/releases/download/v7.0/YURI_Loretta_Walk_And_Sit_No_Captions_480p.mp4)
 
-Version **6.0** removes all dialogue captions using clean source clips. At approximately **0:31–0:36**, Megan is now visibly speaking her lines in place of the walking cutaway, with her mouth timing aligned to the original dialogue audio.
+Version **7.0** restores the actual escort instead of a stationary cutaway. Megan visibly speaks while walking beside Loretta from the counter through the office doorway, with the guard following. Loretta visibly lowers into the visitor chair at the same desk, then replies seated.
 
-The approved youthful appearance, seated continuity, original dialogue and product end-card artwork are preserved.
+The later manager request and visible manager entrance remain in sequence. Other approved scenes, youthful appearance and product end card are retained. No dialogue captions.
 
-One complete MP4. No extraction required.
-
-- Duration: **4:08**
+- Duration: **4:09**
 - Native resolution: **480 × 854**, **24 fps**
-- File size: **57,567,442 bytes** (57.6 MB)
+- File size: **59,078,592 bytes** (59.1 MB)
+- One complete MP4. No extraction required.
 
 The release asset matches the verified export byte-for-byte.
 
-SHA-256: `7d0001258f235c6cbaeedb7a3af49b574f1e3ca77a6847c4e1b1f871a7ec2b61`
+SHA-256: `92c70034804d96578d277967fa4bf87c297451fce0c1e5340b723a317b43b088`
 
-[Previous captioned version (v5.0)](https://github.com/mohammedwaaize-boop/yuri-loretta-bank-captioned/releases/tag/v5.0)
+[Previous clean version (v6.0)](https://github.com/mohammedwaaize-boop/yuri-loretta-bank-captioned/releases/tag/v6.0)
