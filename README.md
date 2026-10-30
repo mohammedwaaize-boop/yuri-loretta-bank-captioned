@@ -1,13 +1,17 @@
-# YURI Loretta — Full captioned film
+# YURI Loretta — Rebuilt captioned film
 
-[Download the complete MP4 directly](https://github.com/mohammedwaaize-boop/yuri-loretta-bank-captioned/releases/download/v1.0/YURI_Loretta_Full_Quality_Captioned.mp4)
+[Download the complete captioned MP4](https://github.com/mohammedwaaize-boop/yuri-loretta-bank-captioned/releases/download/v2.0/YURI_Loretta_Rebuilt_Captioned_480p.mp4)
 
-One complete MP4. No extraction required.
+Version **2.0** revises the ID and phone action order, face framing, scene transitions, and long silent gaps.
 
-Duration: **5:39**. Original resolution: **480 × 854**, **24 fps**. File size: **107,476,265 bytes**. English captions are burned into the video.
+One complete MP4 with burned-in English captions. No extraction required.
 
-The MP4 is the original export, without recompression. Its SHA-256 matches the verified source:
+- Duration: **4:42**
+- Native resolution: **480 × 854**, **24 fps**
+- File size: **80,704,799 bytes** (80.7 MB)
 
-`a4e327701203d07dbbffca1959d3bd82f4893989792cb9bc8e42576b6bbf658e`
+The uploaded MP4 matches the verified final export byte-for-byte. No clean version, separate subtitle file, or individual video clips are included.
 
-The older numbered archive parts remain available in the release. Use the MP4 link above for direct download.
+SHA-256: `6cbb6027c8af2f29a5dfce7af725a482b07a62e3c55ec4be658fb841cdd5d130`
+
+[Release page](https://github.com/mohammedwaaize-boop/yuri-loretta-bank-captioned/releases/tag/v2.0)
